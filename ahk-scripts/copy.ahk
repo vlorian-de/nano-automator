@@ -1,0 +1,1 @@
+Send("^c")            ; STRG+C
