@@ -1,11 +1,8 @@
-const { SerialPort } = require('serialport');
 const { ReadlineParser } = require('@serialport/parser-readline');
 const { exec } = require('child_process');
 const path = require('path');
 
-
 const AUTOHOTKEY_PATH = '"C:\\Program Files\\AutoHotkey\\UX\\AutoHotkeyUX.exe"';
-const WINDOWS_COM_PORT = 'COM4';  // Run `node list-ports.js` to list your available COM ports.
 const PROJECT_DIR = __dirname;
 
 function runAhkScript(scriptName, argument) {
@@ -31,41 +28,46 @@ function runAhkScript(scriptName, argument) {
   });
 }
 
-// Replace with your serial port name. On Windows, it might look like 'COM3'
-const port = new SerialPort({
-  path: WINDOWS_COM_PORT,
-  baudRate: 9600,
-});
+function initializeSerialPort(SerialPort, WINDOWS_COM_PORT = '/dev/tty.usbmodem11101') {
+  const port = new SerialPort({
+    path: WINDOWS_COM_PORT,
+    baudRate: 9600,
+  });
 
-const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
+  const parser = port.pipe(new ReadlineParser({ delimiter: '\n' }));
 
-port.on('open', () => {
-  console.log('Serial port open');
-});
+  port.on('open', () => {
+    console.log('Serial port open');
+  });
 
-parser.on('data', data => {
-  try {
-    const json = JSON.parse(data);
-    if (json.idle !== undefined) {
-      process.stdout.write(".");
-    } else if (json.current !== undefined) {
-      console.log(`Current: ${json.current}`);
-    } else if (json.ks !== undefined) {
-      console.log(`Key States: ks=${json.ks}, kd=${json.kd}, ku=${json.ku}`);
-      if (json.kd === 1) runAhkScript('undo.ahk');
-      if (json.kd === 2) runAhkScript('copy.ahk');
-      if (json.kd === 3) runAhkScript('paste.ahk');
-    } else if (json.p !== undefined) {
-      console.log(`Setting volume to: ${json.p}`);
-      runAhkScript('volume-abs.ahk', json.p);
-    } else {
-      console.log(`Unknown data: ${json}`, json);
+  parser.on('data', data => {
+    try {
+      const json = JSON.parse(data);
+      if (json.idle !== undefined) {
+        process.stdout.write(".");
+      } else if (json.current !== undefined) {
+        console.log(`Current: ${json.current}`);
+      } else if (json.ks !== undefined) {
+        console.log(`Key States: ks=${json.ks}, kd=${json.kd}, ku=${json.ku}`);
+        if (json.kd === 1) runAhkScript('undo.ahk');
+        if (json.kd === 2) runAhkScript('copy.ahk');
+        if (json.kd === 3) runAhkScript('paste.ahk');
+      } else if (json.p !== undefined) {
+        console.log(`Setting volume to: ${json.p}`);
+        runAhkScript('volume-abs.ahk', json.p);
+      } else {
+        console.log(`Unknown data: ${json}`, json);
+      }
+    } catch (e) {
+      console.log(`Error parsing JSON: ${data}`);
     }
-  } catch (e) {
-    console.log(`Error parsing JSON: ${data}`);
-  }
-});
+  });
 
-port.on('error', err => {
-  console.error('Error: ', err.message);
-});
+  port.on('error', err => {
+    console.error('Error: ', err.message);
+  });
+}
+
+module.exports = {
+  initializeSerialPort
+};
