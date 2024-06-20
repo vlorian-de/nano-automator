@@ -28,9 +28,9 @@ function runAhkScript(scriptName, argument) {
   });
 }
 
-function initializeSerialPort(SerialPort, WINDOWS_COM_PORT = '/dev/tty.usbmodem11101') {
-  const port = new SerialPort({
-    path: WINDOWS_COM_PORT,
+function initializeSerialPort(serialPort, nanoPort) {
+  const port = new serialPort({
+    path: nanoPort,
     baudRate: 9600,
   });
 
