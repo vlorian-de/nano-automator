@@ -5,7 +5,6 @@ const { getFilteredPorts } = require('./list-ports');
 async function main() {
   try {
     const filteredPorts = await getFilteredPorts(SerialPort);
-    console.log('Filtered Ports:', filteredPorts);
     if (filteredPorts.length === 0) {
       console.error('No Nano_D++ found');
       return;
