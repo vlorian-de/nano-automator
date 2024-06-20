@@ -4,7 +4,7 @@
 
 ## Project Description
 
-Nano Automator is a software that enables a NanoD+ device to support various functions on a computer. This software has been tested only on Windows so far, but it is planned to work on MacOS in the future.
+Nano Automator is a software that enables a [Binaris Nano_D++](https://store.binaris.io/products/nano_d-sensory-hid) device to support various functions on a computer. This software has been tested only on Windows so far, but it is planned to work on MacOS in the future.
 
 ## Prerequisites
 
@@ -42,6 +42,22 @@ The following scripts are available to start the software:
     npm run dev
     ```
     This starts the application with `nodemon` for development, which means the application will automatically restart with each change.
+
+## Configuration
+
+Before starting the application, adjust the following constants in the `index.js` file to match your environment:
+
+```javascript
+const AUTOHOTKEY_PATH = '"C:\\Program Files\\AutoHotkey\\UX\\AutoHotkeyUX.exe"';
+const WINDOWS_COM_PORT = 'COM4';  // Run `node list-ports.js` to list your available COM ports.
+```
+
+You can determine the exact name of WINDOWS_COM_PORT by running:
+```sh
+node list-ports.js
+```
+
+A future version is planned that will automatically detect the Nano_D++.
 
 ## Dependencies
 
