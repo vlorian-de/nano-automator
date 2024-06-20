@@ -1,6 +1,6 @@
 # Nano Automator
 
-**Version:** 1.0.0
+**Version:** 1.1.0
 
 ## Project Description
 
@@ -45,19 +45,11 @@ The following scripts are available to start the software:
 
 ## Configuration
 
-Before starting the application, adjust the following constants in the `index.js` file to match your environment:
+Before starting the application, adjust the following constants in the `service.js` file to use AutoHotKey:
 
 ```javascript
 const AUTOHOTKEY_PATH = '"C:\\Program Files\\AutoHotkey\\UX\\AutoHotkeyUX.exe"';
-const WINDOWS_COM_PORT = 'COM4';  // Run `node list-ports.js` to list your available COM ports.
 ```
-
-You can determine the exact name of WINDOWS_COM_PORT by running:
-```sh
-node list-ports.js
-```
-
-A future version is planned that will automatically detect the Nano_D++.
 
 ## Dependencies
 
