@@ -1,4 +1,5 @@
 const path = require('path');
+const { runCommand } = require('./cross-plattform');
 
 function autoHotKey(scriptName, argument) {
     // Path to the AutoHotKey script in the 'ahk-scripts' subfolder
@@ -8,19 +9,7 @@ function autoHotKey(scriptName, argument) {
     const command = `${AUTOHOTKEY_PATH} "${scriptPath}" ${argument}`;
 
     // Execute the command
-    exec(command, (error, stdout, stderr) => {
-        if (error) {
-            console.error(`Error executing the command: ${error.message}`);
-            return;
-        }
-
-        if (stderr) {
-            console.error(`Standard error output: ${stderr}`);
-            return;
-        }
-
-        console.log(`Standard output: ${stdout}`);
-    });
+    runCommand(command);
 }
 
 function copy() {
@@ -31,9 +20,13 @@ function paste() {
     autoHotKey('paste.ahk');
 }
 
+function undo() {
+    autoHotKey('undo.ahk');
+}
 
 module.exports = {
     autoHotKey,
     copy,
     paste,
+    undo,
 };  

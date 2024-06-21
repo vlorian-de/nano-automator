@@ -73,7 +73,7 @@ function runCommand(command) {
             console.error(`Standard error output: ${stderr}`);
             return;
         }
-        console.log(`Standard output: ${stdout}`);
+        if (stdout.length > 0) console.log(`Standard output: ${stdout}`);
     });
 }
 

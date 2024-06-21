@@ -1,8 +1,11 @@
+const { runCommand } = require("./cross-plattform");
 
 
-function macShortcut(data) {
-    // See https://support.apple.com/de-de/guide/shortcuts-mac/apd455c82f02/mac
-    console.log('Mac shortcut');
+function macShortcut(shortcutName) {
+    return () => {
+        // See https://support.apple.com/de-de/guide/shortcuts-mac/apd455c82f02/mac
+        runCommand(`shortcuts run "${shortcutName}" &`);
+    }
 }
 
 module.exports = {
