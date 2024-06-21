@@ -4,7 +4,7 @@
   "scripts": {
     "start": "node index.js",
     "dev": "nodemon index.js",
-    "devl": "nodemon list-ports.js"
+    "devm": "nodemon mapping.js"
   },
   "dependencies": {
     "@serialport/parser-readline": "^12.0.0",
