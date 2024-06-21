@@ -4,7 +4,10 @@ const { runCommand, playPause, nextTrack, setVolume, lockComputer } = require('.
 const { autoKey, copy, paste } = require('./actions/windows');
 const { macShortcut } = require('./actions/macOS');
 
-const mappings = [
+
+const AUTOHOTKEY_PATH = '"C:\\Program Files\\AutoHotkey\\UX\\AutoHotkeyUX.exe"';
+
+const MAPPINGS = [
     {
         condition: [knobTurned],
         action: setVolume
@@ -36,5 +39,6 @@ const mappings = [
 ]
 
 module.exports = {
-    mappings,
+    AUTOHOTKEY_PATH,
+    MAPPINGS,
 };  

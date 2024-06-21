@@ -2,9 +2,8 @@ const { ReadlineParser } = require('@serialport/parser-readline');
 const { exec } = require('child_process');
 const path = require('path');
 const { executeMappings } = require('./mapping');
-const { mappings } = require('./config');
+const { AUTOHOTKEY_PATH, MAPPINGS } = require('./config');
 
-const AUTOHOTKEY_PATH = '"C:\\Program Files\\AutoHotkey\\UX\\AutoHotkeyUX.exe"';
 const PROJECT_DIR = __dirname;
 
 
@@ -24,7 +23,7 @@ function initializeSerialPort(serialPort, nanoPort) {
   parser.on('data', data => {
     try {
       const json = JSON.parse(data);
-      executeMappings(mappings, json);
+      executeMappings(MAPPINGS, json);
     } catch (e) {
       console.log(`Error parsing JSON: ${data}`);
     }
