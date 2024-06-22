@@ -84,7 +84,7 @@ const MAPPINGS = [
 ````
 
 ## Available Conditions and Actions
-### Conditions
+### Actions
 |                                            | Windows | MacOS |
 | ------------------------------------------ | ------- | ----- |
 | copy / paste                               | ✅       |       |
@@ -101,7 +101,7 @@ const MAPPINGS = [
 | run (Siri) "shortcuts"                     |         | ✅<br> |
 | control Homekit devices (with "shortcuts") |         | ✅     |
 
-Actions
+### Trigger Conditions
 |                  | Windows | MacOS |
 | ---------------- | ------- | ----- |
 | key down         | ✅       | ✅     |
